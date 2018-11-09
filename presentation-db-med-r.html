@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Databaser med R</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="generator" content="pandoc" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <base target="_blank">
+
+  <script type="text/javascript">
+    var SLIDE_CONFIG = {
+      // Slide settings
+      settings: {
+                title: 'Databaser med R',
+                        useBuilds: true,
+        usePrettify: true,
+        enableSlideAreas: true,
+        enableTouch: true,
+                        favIcon: 'presentation-db-med-r_files/logo.png',
+              },
+
+      // Author information
+      presenters: [
+            ]
+    };
+  </script>
+
+  <link href="presentation-db-med-r_files/ioslides-13.5.1/fonts/fonts.css" rel="stylesheet" />
+  <link href="presentation-db-med-r_files/ioslides-13.5.1/theme/css/default.css" rel="stylesheet" />
+  <link href="presentation-db-med-r_files/ioslides-13.5.1/theme/css/phone.css" rel="stylesheet" />
+  <script src="presentation-db-med-r_files/ioslides-13.5.1/js/modernizr.custom.45394.js"></script>
+  <script src="presentation-db-med-r_files/ioslides-13.5.1/js/prettify/prettify.js"></script>
+  <script src="presentation-db-med-r_files/ioslides-13.5.1/js/prettify/lang-r.js"></script>
+  <script src="presentation-db-med-r_files/ioslides-13.5.1/js/prettify/lang-yaml.js"></script>
+  <script src="presentation-db-med-r_files/ioslides-13.5.1/js/hammer.js"></script>
+  <script src="presentation-db-med-r_files/ioslides-13.5.1/js/slide-controller.js"></script>
+  <script src="presentation-db-med-r_files/ioslides-13.5.1/js/slide-deck.js"></script>
+
+  <style type="text/css">
+
+    b, strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    slides > slide {
+      -webkit-transition: all 0.4s ease-in-out;
+      -moz-transition: all 0.4s ease-in-out;
+      -o-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+    }
+
+    .auto-fadein {
+      -webkit-transition: opacity 0.6s ease-in;
+      -webkit-transition-delay: 0.4s;
+      -moz-transition: opacity 0.6s ease-in 0.4s;
+      -o-transition: opacity 0.6s ease-in 0.4s;
+      transition: opacity 0.6s ease-in 0.4s;
+      opacity: 0;
+    }
+
+    slides > slide:not(.nobackground):before {
+      font-size: 12pt;
+      content: "";
+      position: absolute;
+      bottom: 20px;
+      left: 60px;
+      background: url(presentation-db-med-r_files/logo.png) no-repeat 0 50%;
+      -webkit-background-size: 30px 30px;
+      -moz-background-size: 30px 30px;
+      -o-background-size: 30px 30px;
+      background-size: 30px 30px;
+      padding-left: 40px;
+      height: 30px;
+      line-height: 1.9;
+    }
+  </style>
+
+  <link rel="stylesheet" href="shiny-slides.css" type="text/css" />
+
+</head>
+
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+        <aside class="gdbar"><img src="presentation-db-med-r_files/logo.png"></aside>
+        <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+          </hgroup>
+  </slide>
+
+<slide class=""><hgroup><h2></h2></hgroup><article  id="section" class="centered">
+
+<p><img src="images/billg.png" width="70%" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Hur använder vi data i R?</h2></hgroup><article  id="hur-anvander-vi-data-i-r" class="centered">
+
+<p><img src="images/r4ds.png" width="100%" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Det vanliga förfarandet</h2></hgroup><article  id="det-vanliga-forfarandet" class="centered">
+
+<p><img src="images/import.png" width="80%" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Och med databaser då?</h2></hgroup><article  id="och-med-databaser-da" class="centered">
+
+<p><img src="images/db.png" width="80%" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Och med databaser då?</h2></hgroup><article  id="och-med-databaser-da-1" class="centered">
+
+<p><img src="images/db-to-r.png" width="80%" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Några miljoner rader senare…</h2></hgroup><article  id="nagra-miljoner-rader-senare">
+
+<iframe src="https://giphy.com/embed/3ohs81rDuEz9ioJzAA" width="480" height="358" frameBorder="0" class="giphy-embed" allowFullScreen>
+
+</iframe>
+
+<p>
+
+<a href="https://giphy.com/gifs/angry-mad-computer-3ohs81rDuEz9ioJzAA">via GIPHY</a>
+
+</p>
+
+</article></slide><slide class=""><hgroup><h2>Alternativ?</h2></hgroup><article  id="alternativ" class="centered">
+
+<p><img src="images/sql.png" width="100%" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Finns numera god möjligheter att göra allt du behöver i RStudio 1.2</h2></hgroup><article  id="finns-numera-god-mojligheter-att-gora-allt-du-behover-i-rstudio-1.2" class="centered">
+
+<p><img src="images/connection.png" width="80%" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Utforska databasen</h2></hgroup><article  id="utforska-databasen" class="centered">
+
+<p><img src="images/exploring.png" width="60%" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Du kan till och med skriva SQL</h2></hgroup><article  id="du-kan-till-och-med-skriva-sql" class="centered">
+
+<p><img src="images/sql-screen.png" width="60%" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Men varför skriva SQL?</h2></hgroup><article  id="men-varfor-skriva-sql" class="centered">
+
+<p><img src="images/dplyr.png" width="40%" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Ett exempel</h2></hgroup><article  id="ett-exempel">
+
+<ul class = 'build'>
+<li>Vår egen Snowflake-databas med data från FIS</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>my_db &lt;- src_snowflakedb(user = keyring::key_list(&quot;snowflake&quot;)[1,2],
+                         password = keyring::key_get(&quot;snowflake&quot;),
+                         account = &quot;ferrologic&quot;,
+                         region = &quot;eu-central-1&quot;,
+                         opts = list(warehouse = &quot;SWESKI_ANALYTICS&quot;,
+                                     db = &quot;SWESKI_DB&quot;,
+                                     schema = &quot;SWESKI_SCHEMA&quot;))</pre>
+
+</article></slide><slide class=""><hgroup><h2>Det vanliga är dock odbc</h2></hgroup><article  id="det-vanliga-ar-dock-odbc">
+
+<pre class = 'prettyprint lang-r'>library(odbc)
+con_userdb &lt;- dbConnect(odbc::odbc(), &#39;master_db&#39;, encoding = &quot;latin1&quot;)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Vi är nu uppkopplade mot databasen</h2></hgroup><article  id="vi-ar-nu-uppkopplade-mot-databasen" class="centered">
+
+<p><img src="images/excited.jpg" width="60%" /></p>
+
+</article></slide><slide class=""><hgroup><h2>SQL</h2></hgroup><article  id="sql">
+
+<pre class = 'prettyprint lang-sql_ex'>SELECT &quot;ORIGIN_STATE_ABR&quot;, AVG(&quot;DEP_DELAY&quot;) AS &quot;DEP_DELAY_AVG&quot;
+FROM &quot;airline&quot;
+GROUP BY &quot;ORIGIN_STATE_ABR&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>dplyr</h2></hgroup><article  id="dplyr">
+
+<pre class = 'prettyprint lang-r'>mtcars %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(mean_mpg = mean(mpg), sd_mpg = sd(mpg))</pre>
+
+<pre >## # A tibble: 3 x 3
+##     cyl mean_mpg sd_mpg
+##   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+## 1     4     26.7   4.51
+## 2     6     19.7   1.45
+## 3     8     15.1   2.56</pre>
+
+</article></slide><slide class=""><hgroup><h2>SQL är inte gjort för dataanalys</h2></hgroup><article  id="sql-ar-inte-gjort-for-dataanalys">
+
+<ul class = 'build'>
+<li>Men det är dplyr</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Använd dplyr för att skriva SQL-kod</h2></hgroup><article  id="anvand-dplyr-for-att-skriva-sql-kod">
+
+<pre class = 'prettyprint lang-r'>tbl(my_db, &quot;RESULTAL&quot;) %&gt;%
+  head()</pre>
+
+<pre >## # Source:   lazy query [?? x 17]
+## # Database: SnowflakeDB Data Source
+##    RECID RACEID COMPETITORID COMPETITORNAME POSITION STATUS   BIB
+##    &lt;dbl&gt;  &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
+## 1 5.40e6  92888       203603 KANG Chang-Ye…       44 QLF       57
+## 2 5.40e6  91655       215091 DANCIU Raul           0 DNS1     109
+## 3 5.40e6  91655        68886 ZRNCIC DIM Na…       15 QLF       51
+## 4 5.40e6  92888       198139 YAMADA Kai            0 DNF1     109
+## 5 5.40e6  92101       190874 GIANNOTTI Chi…        0 DNS2      41
+## 6 5.40e6  92887       187410 KAWABATA Kaede        0 DNF2       6
+## # ... with 10 more variables: NATIONCODE &lt;chr&gt;, TIMER1 &lt;chr&gt;,
+## #   TIMER2 &lt;chr&gt;, TIMER3 &lt;chr&gt;, TIMETOT &lt;chr&gt;, VALID &lt;dbl&gt;,
+## #   RACEPOINTS &lt;dbl&gt;, CUPPOINTS &lt;dbl&gt;, LASTUPDATE &lt;chr&gt;, LOADDATE &lt;chr&gt;</pre>
+
+</article></slide><slide class=""><hgroup><h2>I bakgrunden skriver dplyr SQL åt dig</h2></hgroup><article  id="i-bakgrunden-skriver-dplyr-sql-at-dig">
+
+<pre class = 'prettyprint lang-r'>tbl(my_db, &quot;RESULTAL&quot;) %&gt;%
+  head() %&gt;%
+  show_query()</pre>
+
+<pre >## &lt;SQL&gt;
+## SELECT *
+## FROM &quot;RESULTAL&quot;
+## LIMIT 6</pre>
+
+</article></slide><slide class=""><hgroup><h2>Vi kan göra mer komplexa queries</h2></hgroup><article  id="vi-kan-gora-mer-komplexa-queries">
+
+<pre class = 'prettyprint lang-r'>tbl(my_db, &quot;CUPRESULT&quot;) %&gt;%
+  left_join(tbl(my_db, &quot;COMPETITOR&quot;) %&gt;%
+              select(COMPETITORID, NATIONCODE), by = c(&quot;COMPETITORID&quot;)) %&gt;%
+  filter(SEASONCODE == 2018 &amp; CUPID == &quot;WC&quot; &amp; SECTORCODE == &quot;AL&quot;) %&gt;%
+  group_by(NATIONCODE) %&gt;%
+  summarise(points_per_country = sum(POINTS, na.rm = TRUE) / n()) %&gt;%
+  arrange(desc(points_per_country)) %&gt;%
+  head(10)</pre>
+
+<pre >## # Source:     lazy query [?? x 2]
+## # Database:   SnowflakeDB Data Source
+## # Ordered by: desc(points_per_country)
+##    NATIONCODE points_per_country
+##    &lt;chr&gt;                   &lt;dbl&gt;
+##  1 LIE                      444.
+##  2 NOR                      187.
+##  3 SWE                      172.
+##  4 AUT                      154.
+##  5 SVK                      149.
+##  6 SUI                      143.
+##  7 ITA                      131.
+##  8 USA                      125.
+##  9 GER                      117.
+## 10 GBR                      114.
+## # ... with more rows</pre>
+
+</article></slide><slide class=""><hgroup><h2>Åter igen, det här är bara SQL-queries</h2></hgroup><article  id="ater-igen-det-har-ar-bara-sql-queries">
+
+<pre >## &lt;SQL&gt;
+## SELECT &quot;NATIONCODE&quot;, SUM(&quot;POINTS&quot;) / COUNT(*) AS &quot;points_per_country&quot;
+## FROM (SELECT &quot;TBL_LEFT&quot;.&quot;RECID&quot; AS &quot;RECID&quot;, &quot;TBL_LEFT&quot;.&quot;SECTORCODE&quot; AS &quot;SECTORCODE&quot;, &quot;TBL_LEFT&quot;.&quot;SEASONCODE&quot; AS &quot;SEASONCODE&quot;, &quot;TBL_LEFT&quot;.&quot;CUPID&quot; AS &quot;CUPID&quot;, &quot;TBL_LEFT&quot;.&quot;DISCIPLINECODE&quot; AS &quot;DISCIPLINECODE&quot;, &quot;TBL_LEFT&quot;.&quot;COMPETITORID&quot; AS &quot;COMPETITORID&quot;, &quot;TBL_LEFT&quot;.&quot;GENDER&quot; AS &quot;GENDER&quot;, &quot;TBL_LEFT&quot;.&quot;RANK&quot; AS &quot;RANK&quot;, &quot;TBL_LEFT&quot;.&quot;POINTS&quot; AS &quot;POINTS&quot;, &quot;TBL_LEFT&quot;.&quot;LASTUPDATE&quot; AS &quot;LASTUPDATE&quot;, &quot;TBL_LEFT&quot;.&quot;LOADDATE&quot; AS &quot;LOADDATE&quot;, &quot;TBL_RIGHT&quot;.&quot;NATIONCODE&quot; AS &quot;NATIONCODE&quot;
+##   FROM &quot;CUPRESULT&quot; AS &quot;TBL_LEFT&quot;
+##   LEFT JOIN (SELECT &quot;COMPETITORID&quot;, &quot;NATIONCODE&quot;
+## FROM &quot;COMPETITOR&quot;) &quot;TBL_RIGHT&quot;
+##   ON (&quot;TBL_LEFT&quot;.&quot;COMPETITORID&quot; = &quot;TBL_RIGHT&quot;.&quot;COMPETITORID&quot;)
+## ) &quot;aqcwsqtwpl&quot;
+## WHERE (&quot;SEASONCODE&quot; = 2018.0 AND &quot;CUPID&quot; = &#39;WC&#39; AND &quot;SECTORCODE&quot; = &#39;AL&#39;)
+## GROUP BY &quot;NATIONCODE&quot;
+## ORDER BY &quot;points_per_country&quot; DESC
+## LIMIT 6</pre>
+
+</article></slide><slide class=""><hgroup><h2>Vi utnyttjar det bästa i SQL</h2></hgroup><article  id="vi-utnyttjar-det-basta-i-sql">
+
+<ul>
+<li>Vi kan sedan spara data från en query till en data.frame.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>points_per_country &lt;- tbl(my_db, &quot;CUPRESULT&quot;) %&gt;%
+  left_join(tbl(my_db, &quot;COMPETITOR&quot;) %&gt;%
+              select(COMPETITORID, NATIONCODE), by = c(&quot;COMPETITORID&quot;)) %&gt;%
+  filter(SEASONCODE == 2018 &amp; CUPID == &quot;WC&quot; &amp; SECTORCODE == &quot;AL&quot;) %&gt;%
+  group_by(NATIONCODE) %&gt;%
+  summarise(points_per_country = sum(POINTS, na.rm = TRUE) / n()) %&gt;%
+  arrange(desc(points_per_country)) %&gt;%
+  head(10) %&gt;%
+  collect()</pre>
+
+</article></slide><slide class=""><hgroup><h2>Data kan vi sedan använda precis hur vi vill i R</h2></hgroup><article  id="data-kan-vi-sedan-anvanda-precis-hur-vi-vill-i-r">
+
+<pre class = 'prettyprint lang-r'>library(readxl)
+countries &lt;- read_excel(&quot;/Users/filipwastberg/Documents/ferrologic/countrycodes.xlsx&quot;)
+
+points_per_country &lt;- points_per_country %&gt;%
+  mutate(NATIONCODE = case_when(
+    NATIONCODE == &quot;GER&quot; ~ &quot;DEU&quot;,
+    NATIONCODE == &quot;SUI&quot; ~ &quot;CHE&quot;,
+    TRUE ~ as.character(NATIONCODE)
+  ))
+
+points_with_flag &lt;- left_join(points_per_country, countries) %&gt;%
+  mutate(A2 = tolower(A2))</pre>
+
+</article></slide><slide class=""><hgroup><h2>Data kan vi sedan använda precis hur vi vill i R</h2></hgroup><article  id="data-kan-vi-sedan-anvanda-precis-hur-vi-vill-i-r-1">
+
+<p><img src="presentation-db-med-r_files/figure-html/unnamed-chunk-15-1.png" width="720" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Men du behöver inte ladda ner data</h2></hgroup><article  id="men-du-behover-inte-ladda-ner-data">
+
+<pre class = 'prettyprint lang-r'>library(dbplot)
+library(scales)
+
+tbl(my_db, &quot;CUPRESULT&quot;) %&gt;%
+  left_join(tbl(my_db, &quot;COMPETITOR&quot;) %&gt;% 
+              select(COMPETITORID, NATIONCODE),
+            by = c(&quot;COMPETITORID&quot;)) %&gt;%
+  filter(GENDER %in% c(&quot;L&quot;, &quot;M&quot;)) %&gt;%
+  db_compute_count(GENDER) %&gt;%
+  rename(n = &quot;n()&quot;) %&gt;%
+  ggplot() +
+  geom_col(aes(x = GENDER, y = n, fill = GENDER)) +
+  labs(title = &quot;Gender distribution of comptetitors in Alpine competitions&quot;,
+       subtitle = &quot;Source: FIS Database&quot;, x = &quot;Gender&quot;, y = &quot;&quot;) +
+  guides(fill = FALSE) +
+  scale_y_continuous(labels = filipp::space) +
+  theme_minimal() +
+  scale_fill_viridis_d()</pre>
+
+</article></slide><slide class=""><hgroup><h2>Men du behöver inte ladda ner data</h2></hgroup><article  id="men-du-behover-inte-ladda-ner-data-1">
+
+<p><img src="presentation-db-med-r_files/figure-html/dbcompute_show-1.png" width="720" /></p>
+
+</article></slide><slide class=""><hgroup><h2>När aggregerad data inte räcker</h2></hgroup><article  id="nar-aggregerad-data-inte-racker">
+
+<ul>
+<li>Ingen metod för sampling i SQL</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>När aggregerad data inte räcker</h2></hgroup><article  id="nar-aggregerad-data-inte-racker-1">
+
+<pre class = 'prettyprint lang-r'>rows &lt;- tbl(my_db, &quot;RESULTAL&quot;) %&gt;%
+  filter(STATUS == &quot;QLF&quot;) %&gt;%
+  tally() %&gt;%
+  pull()
+
+sample_rows &lt;- sample(1:rows, 600)</pre>
+
+</article></slide><slide class=""><hgroup><h2>När aggregerad data inte räcker</h2></hgroup><article  id="nar-aggregerad-data-inte-racker-2">
+
+<pre class = 'prettyprint lang-r'>df &lt;- tbl(my_db, &quot;RESULTAL&quot;) %&gt;%
+  filter(STATUS == &quot;QLF&quot;) %&gt;%
+  arrange(LASTUPDATE) %&gt;%
+  mutate(rown = row_number()) %&gt;%
+  filter(rown %in% sample_rows) %&gt;% 
+  collect()
+
+count(df)</pre>
+
+<pre >## # A tibble: 1 x 1
+##       n
+##   &lt;int&gt;
+## 1   600</pre>
+
+</article></slide><slide class=""><hgroup><h2>Att köra modeller i databaser</h2></hgroup><article  id="att-kora-modeller-i-databaser">
+
+<ul class = 'build'>
+<li>Tidigare en fråga om analysplattform</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Att köra modeller i databaser</h2></hgroup><article  id="att-kora-modeller-i-databaser-1">
+
+<pre class = 'prettyprint lang-r'>library(randomForest)
+titanic_train &lt;- titanic::titanic_train %&gt;%
+  mutate_if(is.character, funs(as.factor(.))) %&gt;%
+  na.omit()
+
+titanic_fit &lt;- randomForest(as.factor(Survived) ~ 
+                              Pclass + Sex + Age + SibSp +
+                              Parch + Fare + Embarked,
+                      data = titanic_train, 
+                      importance = TRUE, 
+                      ntree = 100)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Att köra modeller i databaser</h2></hgroup><article  id="att-kora-modeller-i-databaser-2">
+
+<pre class = 'prettyprint lang-r'>library(tidypredict)
+tidypredict_sql(titanic_fit, dbplyr::simulate_mssql())</pre>
+
+<pre >## &lt;SQL&gt; CASE
+## WHEN ((`Parch` &gt; 0.5 AND `Embarked` &lt;= 4.0)) THEN (&#39;0&#39;)
+## WHEN ((`Sex` &gt; 1.0 AND `Embarked` &lt;= 2.0 AND `Fare` &lt;= 26.14375 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Pclass` &gt; 2.5 AND `Fare` &gt; 26.14375 AND `Sex` &gt; 1.0 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`Age` &lt;= 9.5 AND `Age` &lt;= 14.5 AND `SibSp` &lt;= 0.5 AND `Sex` &lt;= 1.0 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`Age` &gt; 9.5 AND `Age` &lt;= 14.5 AND `SibSp` &lt;= 0.5 AND `Sex` &lt;= 1.0 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Age` &gt; 14.5 AND `Embarked` &lt;= 3.0 AND `SibSp` &lt;= 0.5 AND `Sex` &lt;= 1.0 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`Fare` &gt; 22.5 AND `SibSp` &gt; 0.5 AND `Pclass` &lt;= 2.5 AND `Sex` &lt;= 1.0 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`SibSp` &gt; 2.5 AND `Pclass` &gt; 2.5 AND `SibSp` &gt; 0.5 AND `Sex` &lt;= 1.0 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`Embarked` &gt; 2.0 AND `Sex` &gt; 1.0 AND `Pclass` &lt;= 1.5 AND `Fare` &lt;= 26.14375 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Fare` &gt; 26.14375 AND `Sex` &gt; 1.0 AND `Fare` &lt;= 26.46875 AND `Pclass` &lt;= 2.5 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Fare` &lt;= 116.70415 AND `SibSp` &lt;= 2.5 AND `Age` &lt;= 7.5)) THEN (&#39;1&#39;)
+## WHEN ((`Fare` &gt; 35.5375 AND `SibSp` &gt; 2.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Age` &lt;= 7.5)) THEN (&#39;0&#39;)
+## WHEN ((`Embarked` &gt; 3.0 AND `Age` &gt; 14.5 AND `Pclass` &lt;= 1.5 AND `SibSp` &lt;= 0.5 AND `Sex` &lt;= 1.0 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`Pclass` &gt; 1.5 AND `Embarked` &gt; 3.0 AND `Age` &gt; 14.5 AND `SibSp` &lt;= 0.5 AND `Sex` &lt;= 1.0 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`SibSp` &gt; 2.0 AND `SibSp` &gt; 0.5 AND `Fare` &lt;= 22.5 AND `Pclass` &lt;= 2.5 AND `Sex` &lt;= 1.0 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`SibSp` &gt; 1.5 AND `Pclass` &gt; 2.5 AND `SibSp` &gt; 0.5 AND `SibSp` &lt;= 2.5 AND `Sex` &lt;= 1.0 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Age` &gt; 75.5 AND `Fare` &gt; 26.46875 AND `Fare` &gt; 26.14375 AND `Sex` &gt; 1.0 AND `Pclass` &lt;= 2.5 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`Fare` &gt; 116.70415 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Age` &lt;= 1.46 AND `SibSp` &lt;= 2.5 AND `Age` &lt;= 7.5)) THEN (&#39;1&#39;)
+## WHEN ((`Age` &gt; 1.46 AND `Fare` &gt; 116.70415 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `SibSp` &lt;= 2.5 AND `Age` &lt;= 7.5)) THEN (&#39;0&#39;)
+## WHEN ((`SibSp` &gt; 2.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `SibSp` &lt;= 3.5 AND `Fare` &lt;= 35.5375 AND `Age` &lt;= 7.5)) THEN (&#39;0&#39;)
+## WHEN ((`Fare` &gt; 48.2 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Parch` &lt;= 1.5 AND `Sex` &lt;= 1.0)) THEN (&#39;1&#39;)
+## WHEN ((`Sex` &gt; 1.0 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Age` &lt;= 18.0 AND `Pclass` &lt;= 1.5)) THEN (&#39;1&#39;)
+## WHEN ((`SibSp` &gt; 0.5 AND `Embarked` &lt;= 2.0 AND `SibSp` &lt;= 2.0 AND `Fare` &lt;= 22.5 AND `Pclass` &lt;= 2.5 AND `Sex` &lt;= 1.0 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`Embarked` &gt; 2.0 AND `SibSp` &gt; 0.5 AND `SibSp` &lt;= 2.0 AND `Fare` &lt;= 22.5 AND `Pclass` &lt;= 2.5 AND `Sex` &lt;= 1.0 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Pclass` &gt; 2.5 AND `SibSp` &gt; 0.5 AND `Age` &lt;= 16.5 AND `SibSp` &lt;= 1.5 AND `SibSp` &lt;= 2.5 AND `Sex` &lt;= 1.0 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`Fare` &gt; 8.20625 AND `Pclass` &gt; 1.5 AND `Embarked` &gt; 2.0 AND `Sex` &gt; 1.0 AND `Age` &lt;= 32.5 AND `Fare` &lt;= 26.14375 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Age` &gt; 32.5 AND `Pclass` &gt; 1.5 AND `Embarked` &gt; 2.0 AND `Sex` &gt; 1.0 AND `Fare` &lt;= 7.9104 AND `Fare` &lt;= 26.14375 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Pclass` &gt; 1.5 AND `Fare` &gt; 26.46875 AND `Fare` &gt; 26.14375 AND `Sex` &gt; 1.0 AND `Age` &lt;= 75.5 AND `Pclass` &lt;= 2.5 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`SibSp` &gt; 3.5 AND `SibSp` &gt; 2.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Age` &lt;= 2.5 AND `Fare` &lt;= 35.5375 AND `Age` &lt;= 7.5)) THEN (&#39;0&#39;)
+## WHEN ((`Age` &gt; 2.5 AND `SibSp` &gt; 3.5 AND `SibSp` &gt; 2.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Fare` &lt;= 35.5375 AND `Age` &lt;= 7.5)) THEN (&#39;1&#39;)
+## WHEN ((`Parch` &gt; 1.5 AND `Fare` &gt; 48.2 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Embarked` &lt;= 2.0 AND `Sex` &lt;= 1.0)) THEN (&#39;1&#39;)
+## WHEN ((`Pclass` &gt; 1.5 AND `Sex` &gt; 1.0 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Fare` &lt;= 15.07085 AND `Parch` &lt;= 1.5)) THEN (&#39;0&#39;)
+## WHEN ((`Fare` &gt; 20.55 AND `Parch` &gt; 1.5 AND `Pclass` &gt; 1.5 AND `Sex` &gt; 1.0 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Age` &gt; 24.5 AND `Age` &gt; 16.5 AND `Pclass` &gt; 2.5 AND `SibSp` &gt; 0.5 AND `SibSp` &lt;= 1.5 AND `SibSp` &lt;= 2.5 AND `Sex` &lt;= 1.0 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Age` &gt; 31.5 AND `Pclass` &gt; 1.5 AND `Embarked` &gt; 2.0 AND `Sex` &gt; 1.0 AND `Fare` &lt;= 8.20625 AND `Age` &lt;= 32.5 AND `Fare` &lt;= 26.14375 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`Fare` &gt; 7.9104 AND `Age` &gt; 32.5 AND `Pclass` &gt; 1.5 AND `Embarked` &gt; 2.0 AND `Sex` &gt; 1.0 AND `Embarked` &lt;= 4.0 AND `Fare` &lt;= 26.14375 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Fare` &gt; 121.275 AND `Fare` &gt; 26.46875 AND `Fare` &gt; 26.14375 AND `Sex` &gt; 1.0 AND `Pclass` &lt;= 1.5 AND `Age` &lt;= 75.5 AND `Pclass` &lt;= 2.5 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`SibSp` &gt; 0.5 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Fare` &lt;= 17.3729 AND `Parch` &lt;= 1.5 AND `Fare` &lt;= 48.2 AND `Sex` &lt;= 1.0)) THEN (&#39;0&#39;)
+## WHEN ((`Fare` &gt; 17.3729 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `SibSp` &lt;= 2.0 AND `Parch` &lt;= 1.5 AND `Fare` &lt;= 48.2 AND `Sex` &lt;= 1.0)) THEN (&#39;1&#39;)
+## WHEN ((`SibSp` &gt; 2.0 AND `Fare` &gt; 17.3729 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Parch` &lt;= 1.5 AND `Fare` &lt;= 48.2 AND `Sex` &lt;= 1.0)) THEN (&#39;0&#39;)
+## WHEN ((`Parch` &gt; 1.5 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Pclass` &lt;= 2.5 AND `SibSp` &lt;= 0.5 AND `Fare` &lt;= 48.2 AND `Sex` &lt;= 1.0)) THEN (&#39;1&#39;)
+## WHEN ((`Embarked` &gt; 2.0 AND `Parch` &gt; 1.5 AND `Fare` &gt; 48.2 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Pclass` &lt;= 1.5 AND `Sex` &lt;= 1.0)) THEN (&#39;1&#39;)
+## WHEN ((`Pclass` &gt; 1.5 AND `Embarked` &gt; 2.0 AND `Parch` &gt; 1.5 AND `Fare` &gt; 48.2 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Sex` &lt;= 1.0)) THEN (&#39;1&#39;)
+## WHEN ((`Age` &gt; 18.0 AND `Sex` &gt; 1.0 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Age` &lt;= 25.0 AND `Embarked` &lt;= 2.0 AND `Pclass` &lt;= 1.5)) THEN (&#39;1&#39;)
+## WHEN ((`Embarked` &gt; 2.0 AND `Age` &gt; 18.0 AND `Sex` &gt; 1.0 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Fare` &lt;= 157.7771 AND `Pclass` &lt;= 1.5)) THEN (&#39;1&#39;)
+## WHEN ((`Fare` &gt; 157.7771 AND `Embarked` &gt; 2.0 AND `Age` &gt; 18.0 AND `Sex` &gt; 1.0 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Pclass` &lt;= 1.5)) THEN (&#39;0&#39;)
+## WHEN ((`Age` &gt; 24.0 AND `Fare` &gt; 15.07085 AND `Pclass` &gt; 1.5 AND `Sex` &gt; 1.0 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Parch` &lt;= 1.5)) THEN (&#39;0&#39;)
+## WHEN ((`Parch` &gt; 1.5 AND `Pclass` &gt; 1.5 AND `Sex` &gt; 1.0 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Age` &lt;= 24.75 AND `Fare` &lt;= 20.55)) THEN (&#39;1&#39;)
+## WHEN ((`Age` &gt; 24.75 AND `Parch` &gt; 1.5 AND `Pclass` &gt; 1.5 AND `Sex` &gt; 1.0 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Fare` &lt;= 20.55)) THEN (&#39;0&#39;)
+## WHEN ((`Age` &gt; 16.5 AND `Pclass` &gt; 2.5 AND `SibSp` &gt; 0.5 AND `Age` &lt;= 22.0 AND `Age` &lt;= 24.5 AND `SibSp` &lt;= 1.5 AND `SibSp` &lt;= 2.5 AND `Sex` &lt;= 1.0 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Age` &gt; 22.0 AND `Age` &gt; 16.5 AND `Pclass` &gt; 2.5 AND `SibSp` &gt; 0.5 AND `Age` &lt;= 24.5 AND `SibSp` &lt;= 1.5 AND `SibSp` &lt;= 2.5 AND `Sex` &lt;= 1.0 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`Embarked` &gt; 4.0 AND `Fare` &gt; 7.9104 AND `Age` &gt; 32.5 AND `Pclass` &gt; 1.5 AND `Embarked` &gt; 2.0 AND `Sex` &gt; 1.0 AND `Pclass` &lt;= 2.5 AND `Fare` &lt;= 26.14375 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Fare` &lt;= 13.4646 AND `SibSp` &lt;= 0.5 AND `Fare` &lt;= 17.3729 AND `Parch` &lt;= 1.5 AND `Fare` &lt;= 48.2 AND `Sex` &lt;= 1.0)) THEN (&#39;1&#39;)
+## WHEN ((`Fare` &gt; 13.4646 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `SibSp` &lt;= 0.5 AND `Fare` &lt;= 17.3729 AND `Parch` &lt;= 1.5 AND `Fare` &lt;= 48.2 AND `Sex` &lt;= 1.0)) THEN (&#39;0&#39;)
+## WHEN ((`Parch` &gt; 3.5 AND `Pclass` &gt; 2.5 AND `Parch` &gt; 1.5 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `SibSp` &lt;= 0.5 AND `Fare` &lt;= 48.2 AND `Sex` &lt;= 1.0)) THEN (&#39;0&#39;)
+## WHEN ((`SibSp` &gt; 0.5 AND `Parch` &gt; 1.5 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Fare` &lt;= 17.9125 AND `Parch` &lt;= 4.5 AND `Fare` &lt;= 48.2 AND `Sex` &lt;= 1.0)) THEN (&#39;1&#39;)
+## WHEN ((`Fare` &gt; 17.9125 AND `SibSp` &gt; 0.5 AND `Parch` &gt; 1.5 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Parch` &lt;= 4.5 AND `Fare` &lt;= 48.2 AND `Sex` &lt;= 1.0)) THEN (&#39;0&#39;)
+## WHEN ((`Parch` &gt; 4.5 AND `SibSp` &gt; 0.5 AND `Parch` &gt; 1.5 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Age` &lt;= 38.5 AND `Fare` &lt;= 48.2 AND `Sex` &lt;= 1.0)) THEN (&#39;1&#39;)
+## WHEN ((`Age` &gt; 38.5 AND `Parch` &gt; 4.5 AND `SibSp` &gt; 0.5 AND `Parch` &gt; 1.5 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Fare` &lt;= 48.2 AND `Sex` &lt;= 1.0)) THEN (&#39;0&#39;)
+## WHEN ((`Age` &gt; 25.0 AND `Age` &gt; 18.0 AND `Sex` &gt; 1.0 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Parch` &lt;= 1.5 AND `Embarked` &lt;= 2.0 AND `Pclass` &lt;= 1.5)) THEN (&#39;0&#39;)
+## WHEN ((`Parch` &gt; 1.5 AND `Age` &gt; 25.0 AND `Age` &gt; 18.0 AND `Sex` &gt; 1.0 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Embarked` &lt;= 2.0 AND `Pclass` &lt;= 1.5)) THEN (&#39;0&#39;)
+## WHEN ((`Fare` &gt; 15.07085 AND `Pclass` &gt; 1.5 AND `Sex` &gt; 1.0 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Fare` &lt;= 26.24585 AND `Age` &lt;= 24.0 AND `Parch` &lt;= 1.5)) THEN (&#39;1&#39;)
+## WHEN ((`Pclass` &gt; 1.5 AND `Embarked` &gt; 2.0 AND `Sex` &gt; 1.0 AND `Fare` &lt;= 7.19585 AND `SibSp` &lt;= 0.5 AND `Age` &lt;= 31.5 AND `Fare` &lt;= 8.20625 AND `Age` &lt;= 32.5 AND `Fare` &lt;= 26.14375 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Fare` &gt; 7.8896 AND `SibSp` &gt; 0.5 AND `Pclass` &gt; 1.5 AND `Embarked` &gt; 2.0 AND `Sex` &gt; 1.0 AND `Age` &lt;= 31.5 AND `Fare` &lt;= 8.20625 AND `Age` &lt;= 32.5 AND `Fare` &lt;= 26.14375 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`Fare` &gt; 7.9875 AND `Pclass` &gt; 2.5 AND `Embarked` &gt; 4.0 AND `Fare` &gt; 7.9104 AND `Age` &gt; 32.5 AND `Pclass` &gt; 1.5 AND `Embarked` &gt; 2.0 AND `Sex` &gt; 1.0 AND `Fare` &lt;= 26.14375 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Fare` &gt; 26.46875 AND `Fare` &gt; 26.14375 AND `Sex` &gt; 1.0 AND `Embarked` &lt;= 4.0 AND `Age` &lt;= 53.0 AND `Fare` &lt;= 121.275 AND `Pclass` &lt;= 1.5 AND `Age` &lt;= 75.5 AND `Pclass` &lt;= 2.5 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Age` &gt; 53.0 AND `Fare` &gt; 26.46875 AND `Fare` &gt; 26.14375 AND `Sex` &gt; 1.0 AND `Fare` &lt;= 33.9104 AND `Fare` &lt;= 121.275 AND `Pclass` &lt;= 1.5 AND `Age` &lt;= 75.5 AND `Pclass` &lt;= 2.5 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Pclass` &gt; 2.5 AND `Parch` &gt; 1.5 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Age` &lt;= 17.0 AND `Parch` &lt;= 3.5 AND `SibSp` &lt;= 0.5 AND `Fare` &lt;= 48.2 AND `Sex` &lt;= 1.0)) THEN (&#39;0&#39;)
+## WHEN ((`Age` &gt; 17.0 AND `Pclass` &gt; 2.5 AND `Parch` &gt; 1.5 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Parch` &lt;= 3.5 AND `SibSp` &lt;= 0.5 AND `Fare` &lt;= 48.2 AND `Sex` &lt;= 1.0)) THEN (&#39;1&#39;)
+## WHEN ((`Fare` &gt; 26.24585 AND `Fare` &gt; 15.07085 AND `Pclass` &gt; 1.5 AND `Sex` &gt; 1.0 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Age` &lt;= 11.0 AND `Age` &lt;= 24.0 AND `Parch` &lt;= 1.5)) THEN (&#39;1&#39;)
+## WHEN ((`Age` &gt; 11.0 AND `Fare` &gt; 26.24585 AND `Fare` &gt; 15.07085 AND `Pclass` &gt; 1.5 AND `Sex` &gt; 1.0 AND `Age` &gt; 7.5 AND `Embarked` &gt; 4.0 AND `Parch` &gt; 0.5 AND `Age` &lt;= 24.0 AND `Parch` &lt;= 1.5)) THEN (&#39;0&#39;)
+## WHEN ((`Fare` &gt; 7.19585 AND `Pclass` &gt; 1.5 AND `Embarked` &gt; 2.0 AND `Sex` &gt; 1.0 AND `Age` &lt;= 19.75 AND `SibSp` &lt;= 0.5 AND `Age` &lt;= 31.5 AND `Fare` &lt;= 8.20625 AND `Age` &lt;= 32.5 AND `Fare` &lt;= 26.14375 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`SibSp` &gt; 0.5 AND `Pclass` &gt; 1.5 AND `Embarked` &gt; 2.0 AND `Sex` &gt; 1.0 AND `Age` &lt;= 21.5 AND `Fare` &lt;= 7.8896 AND `Age` &lt;= 31.5 AND `Fare` &lt;= 8.20625 AND `Age` &lt;= 32.5 AND `Fare` &lt;= 26.14375 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Pclass` &gt; 2.5 AND `Embarked` &gt; 4.0 AND `Fare` &gt; 7.9104 AND `Age` &gt; 32.5 AND `Pclass` &gt; 1.5 AND `Embarked` &gt; 2.0 AND `Sex` &gt; 1.0 AND `SibSp` &lt;= 1.0 AND `Fare` &lt;= 7.9875 AND `Fare` &lt;= 26.14375 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`SibSp` &gt; 1.0 AND `Pclass` &gt; 2.5 AND `Embarked` &gt; 4.0 AND `Fare` &gt; 7.9104 AND `Age` &gt; 32.5 AND `Pclass` &gt; 1.5 AND `Embarked` &gt; 2.0 AND `Sex` &gt; 1.0 AND `Fare` &lt;= 7.9875 AND `Fare` &lt;= 26.14375 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Fare` &gt; 33.9104 AND `Age` &gt; 53.0 AND `Fare` &gt; 26.46875 AND `Fare` &gt; 26.14375 AND `Sex` &gt; 1.0 AND `Fare` &lt;= 42.5021 AND `Fare` &lt;= 121.275 AND `Pclass` &lt;= 1.5 AND `Age` &lt;= 75.5 AND `Pclass` &lt;= 2.5 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`Fare` &gt; 42.5021 AND `Fare` &gt; 33.9104 AND `Age` &gt; 53.0 AND `Fare` &gt; 26.46875 AND `Fare` &gt; 26.14375 AND `Sex` &gt; 1.0 AND `Fare` &lt;= 121.275 AND `Pclass` &lt;= 1.5 AND `Age` &lt;= 75.5 AND `Pclass` &lt;= 2.5 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Age` &gt; 19.75 AND `Fare` &gt; 7.19585 AND `Pclass` &gt; 1.5 AND `Embarked` &gt; 2.0 AND `Sex` &gt; 1.0 AND `Fare` &lt;= 7.7979 AND `SibSp` &lt;= 0.5 AND `Age` &lt;= 31.5 AND `Fare` &lt;= 8.20625 AND `Age` &lt;= 32.5 AND `Fare` &lt;= 26.14375 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Fare` &gt; 7.7979 AND `Age` &gt; 19.75 AND `Fare` &gt; 7.19585 AND `Pclass` &gt; 1.5 AND `Embarked` &gt; 2.0 AND `Sex` &gt; 1.0 AND `SibSp` &lt;= 0.5 AND `Age` &lt;= 31.5 AND `Fare` &lt;= 8.20625 AND `Age` &lt;= 32.5 AND `Fare` &lt;= 26.14375 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Age` &gt; 21.5 AND `SibSp` &gt; 0.5 AND `Pclass` &gt; 1.5 AND `Embarked` &gt; 2.0 AND `Sex` &gt; 1.0 AND `Fare` &lt;= 7.8146 AND `Fare` &lt;= 7.8896 AND `Age` &lt;= 31.5 AND `Fare` &lt;= 8.20625 AND `Age` &lt;= 32.5 AND `Fare` &lt;= 26.14375 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`Fare` &gt; 7.8146 AND `Age` &gt; 21.5 AND `SibSp` &gt; 0.5 AND `Pclass` &gt; 1.5 AND `Embarked` &gt; 2.0 AND `Sex` &gt; 1.0 AND `Fare` &lt;= 7.8896 AND `Age` &lt;= 31.5 AND `Fare` &lt;= 8.20625 AND `Age` &lt;= 32.5 AND `Fare` &lt;= 26.14375 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Age` &gt; 47.5 AND `Embarked` &gt; 4.0 AND `Fare` &gt; 26.46875 AND `Fare` &gt; 26.14375 AND `Sex` &gt; 1.0 AND `SibSp` &lt;= 0.5 AND `Age` &lt;= 53.0 AND `Fare` &lt;= 121.275 AND `Pclass` &lt;= 1.5 AND `Age` &lt;= 75.5 AND `Pclass` &lt;= 2.5 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`SibSp` &gt; 0.5 AND `Embarked` &gt; 4.0 AND `Fare` &gt; 26.46875 AND `Fare` &gt; 26.14375 AND `Sex` &gt; 1.0 AND `Age` &lt;= 39.5 AND `Age` &lt;= 53.0 AND `Fare` &lt;= 121.275 AND `Pclass` &lt;= 1.5 AND `Age` &lt;= 75.5 AND `Pclass` &lt;= 2.5 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Embarked` &gt; 4.0 AND `Fare` &gt; 26.46875 AND `Fare` &gt; 26.14375 AND `Sex` &gt; 1.0 AND `Age` &lt;= 35.0 AND `Age` &lt;= 47.5 AND `SibSp` &lt;= 0.5 AND `Age` &lt;= 53.0 AND `Fare` &lt;= 121.275 AND `Pclass` &lt;= 1.5 AND `Age` &lt;= 75.5 AND `Pclass` &lt;= 2.5 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`Age` &gt; 35.0 AND `Embarked` &gt; 4.0 AND `Fare` &gt; 26.46875 AND `Fare` &gt; 26.14375 AND `Sex` &gt; 1.0 AND `Age` &lt;= 47.5 AND `SibSp` &lt;= 0.5 AND `Age` &lt;= 53.0 AND `Fare` &lt;= 121.275 AND `Pclass` &lt;= 1.5 AND `Age` &lt;= 75.5 AND `Pclass` &lt;= 2.5 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## WHEN ((`Age` &gt; 39.5 AND `SibSp` &gt; 0.5 AND `Embarked` &gt; 4.0 AND `Fare` &gt; 26.46875 AND `Fare` &gt; 26.14375 AND `Sex` &gt; 1.0 AND `Embarked` &lt;= 2.0 AND `Age` &lt;= 53.0 AND `Fare` &lt;= 121.275 AND `Pclass` &lt;= 1.5 AND `Age` &lt;= 75.5 AND `Pclass` &lt;= 2.5 AND `Parch` &lt;= 0.5)) THEN (&#39;1&#39;)
+## WHEN ((`Embarked` &gt; 2.0 AND `Age` &gt; 39.5 AND `SibSp` &gt; 0.5 AND `Embarked` &gt; 4.0 AND `Fare` &gt; 26.46875 AND `Fare` &gt; 26.14375 AND `Sex` &gt; 1.0 AND `Age` &lt;= 53.0 AND `Fare` &lt;= 121.275 AND `Pclass` &lt;= 1.5 AND `Age` &lt;= 75.5 AND `Pclass` &lt;= 2.5 AND `Parch` &lt;= 0.5)) THEN (&#39;0&#39;)
+## END</pre>
+
+</article></slide><slide class=""><hgroup><h2>Några lärdomar</h2></hgroup><article  id="nagra-lardomar">
+
+<ul class = 'build'>
+<li>Jobbar du med databaser - lär dig SQL</li>
+<li>RStudio är inte en utvecklingsplattform för SQL</li>
+<li>Var ska du göra feature engineering?</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Bästa sättet att deploya modeller</h2></hgroup><article  id="basta-sattet-att-deploya-modeller">
+
+</article></slide><slide class=""><hgroup><h2>Sammanfattning</h2></hgroup><article  id="sammanfattning">
+
+<ul class = 'build'>
+<li>Har du en databas - koppla upp den mot</li>
+<li>Använd <code>dplyr</code> för att skriva SQL och göra analys</li>
+<li>Testa att modellera i databasen med <code>tidypredict</code></li>
+<li>Använd en ordentlig analysplattform för kontinuerlig produktionssättning</li>
+<li>Lär dig SQL</li>
+<li>Göra noga avväganden om var du ska göra feature engineering</li>
+</ul></article></slide>
+
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!-- map slide visiblity events into shiny -->
+<script>
+  (function() {
+    if (window.jQuery) {
+       window.jQuery(document).on('slideleave', function(e) {
+         window.jQuery(e.target).trigger('hidden');
+      });
+       window.jQuery(document).on('slideenter', function(e) {
+         window.jQuery(e.target).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
